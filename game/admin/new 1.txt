@@ -1,0 +1,25 @@
+<?php
+
+  $dbhost = 'localhost';
+  $dbuser = 'root';
+  $dbpass = '';
+  $db = 'pharmacy';
+  $file =dirname(__FILE__).'\\'.'pharmacy.sql';
+  $mySQLDir='"C:\\xampp\\mysql\\data\\pharmacy"';
+
+
+
+    if ($dbpass != '') {
+        $cmd = $mySQLDir.' -h '.$dbhost.' --user='.$dbuser.' --password='.$dbpass.' < "'.$file.'"';
+
+    } else {
+        $cmd = $mySQLDir.' -h '.$dbhost.' --user='.$dbuser.' < "'.$file.'"';
+    }
+
+     echo $cmd;  
+
+   exec('"'.$cmd.'"',$out ,$retval);
+   echo "\n";
+    echo ($retval);
+
+?>

@@ -1,0 +1,80 @@
+?php
+
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$databaseName = "javaprg";
+
+$connect = mysqli_connect($hostname, $username, $password, $databaseName);
+$query = "SELECT * FROM `products`";
+$result = mysqli_query($connect, $query);
+
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Html Table With FooTable </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/footable.core.css">
+        <link rel="stylesheet" href="css/footable.metro.css">
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/footable.js"></script>
+        <script src="js/footable.paginate.js"></script> 
+        <script src="js/footable.sort.js"></script>
+        <script src="js/footable.filter.js"></script>
+  </head>
+    <body>
+        
+        <!-- data-page-size = number of data to display -->
+        <!-- data-XXX-text = text to display in the pagination bar -->
+        <input type="text" id="filter"><br><br>
+        <table class="footable" data-filter="#filter" data-filter-minimum="4" data-page-size="3" data-first-text="<<" data-next-text=">" data-previous-text="<" data-last-text=">>" >
+           <thead>
+            <tr>
+                <!-- data-toggle = where the toggle icon will appear -->
+                
+                <th data-toggle="true">Id</th>
+                <!-- hide this column in mobile -->
+                <th data-hide="phone">Name</th>
+                <!-- hide this column in tablet and mobile -->
+                <th data-type="numeric" data-hide="tablet,phone">Quantity</th>
+                <th data-type="numeric" data-hide="tablet,phone">Price</th>
+                <th data-hide="phone">Image</th>
+                <th data-type="numeric">Category</th>
+            </tr>
+            </thead>
+            <tbody>
+                 <!-- populate table from mysql database -->
+            <?php while($row1 = mysqli_fetch_array($result)):;?>
+            <tr>
+                <td><?php echo $row1[0];?></td>
+                <td><?php echo $row1[1];?></td>
+                <td><?php echo $row1[2];?></td>
+                <td><?php echo $row1[3];?></td>
+
+        <!-- images from folder with the same name as the id + jpg -->
+                <td><img src="products/<?php echo $row1[0];?>.jpg" style="height: 115px; width: 170px;"></td>
+                <td><?php echo $row1[5];?></td>
+            </tr>
+            <?php endwhile;?>
+            </tbody>
+            <!-- the pagination -->
+            <!-- hide-if-no-paging = hide the pagination control -->
+            <tfoot class="hide-if-no-paging">
+            <td colspan="6">
+                <div class="pagination"></div>
+            </td>
+            </tfoot>
+        </table>
+    </body>
+    <script type="text/javascript">
+    
+      $(document).ready(function(){
+         $('.footable').footable(); 
+      });
+    
+    </script>
+</html>
+
