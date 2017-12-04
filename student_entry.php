@@ -3,7 +3,6 @@
 	$post = $_POST;
 	$cel = new db();
 	if(isset($post['submit']))
-		
 	{
 		$result = $cel->student_entry($post);
 		/*
